@@ -11,14 +11,14 @@ pipeline{
             }
             
         }
-        stage(build docker image){
+        stage('build docker image'){
             steps{
                 sh "docker build -t ${IMAGE_NAME} ."
             }
         }
         stage('Run Tests'){
             steps{
-                sh docker run --rm ${IMAGE_NAME} pytest -v"
+                sh "docker run --rm ${IMAGE_NAME} pytest -v"
 
             }
         }
@@ -26,7 +26,7 @@ pipeline{
             steps{
                 sh "docker stop ${CONTAINER_NAME} || true"
                 sh "docker rm ${CONTAINER_NAME} || true"
-                sh "docker run-d --name ${CONTAINER_NAME} -p 8000:8000 ${IMAGE_NAME}"}
+                sh "docker run -d --name ${CONTAINER_NAME} -p 8000:8000 ${IMAGE_NAME}"}
                 }}
 
     }
