@@ -1,8 +1,11 @@
-from python:3.9-slim
+FROM python:3.9-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y\
+# Ensure Python can import from /app
+ENV PYTHONPATH=/app
+
+RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
