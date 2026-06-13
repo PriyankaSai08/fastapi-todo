@@ -1,12 +1,17 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = readProperties(file: '.env').IMAGE_NAME
-        CONTAINER_NAME = readProperties(file: '.env').CONTAINER_NAME
-    }
-
     stages {
+        stage('Load Config') {
+            steps {
+                script {
+                    def props = readProperties file: '.env'
+
+                    env.IMAGE_NAME = props['IMAGE_NAME']
+                    env.CONTAINER_NAME = props['CONTAINER_NAME']
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
