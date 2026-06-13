@@ -1,22 +1,13 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Load Config') {
-            steps {
-                script {
-                    def props = readProperties file: '.env'
+    environment{
+        IMAGE_NAME="todo-app"
+        CONTAINER_NAME="todo-app"
+    }
 
-                    env.IMAGE_NAME = props['IMAGE_NAME']
-                    env.CONTAINER_NAME = props['CONTAINER_NAME']
-                }
-            }
-        }
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    stages {
+        
 
         stage('Build Docker Image') {
             steps {
