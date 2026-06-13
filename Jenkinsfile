@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "todo-app"
-        CONTAINER_NAME = "todo-app"
+        IMAGE_NAME = readProperties(file: '.env').IMAGE_NAME
+        CONTAINER_NAME = readProperties(file: '.env').CONTAINER_NAME
     }
 
     stages {

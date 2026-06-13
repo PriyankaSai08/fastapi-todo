@@ -3,8 +3,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 from main import app, Base, get_db
-
-DATABASE_URL_TEST = "postgresql+psycopg2://postgres:yaya@host.docker.internal:5432/todo_db_test"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+DATABASE_URL_TEST = os.getenv("DATABASE_URL_TEST")
 engine = create_engine(DATABASE_URL_TEST)
 SessionLocalTest = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

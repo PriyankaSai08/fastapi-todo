@@ -1,8 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
+import os
 
-#Database_Url = "postgresql+psycopg2://postgres:yaya@localhost:5432/todo_db"
-Database_Url = "postgresql+psycopg2://postgres:yaya@host.docker.internal:5432/todo_db"
+load_dotenv()
+
+Database_Url = os.getenv("DATABASE_URL")
 
 
 engine = create_engine(Database_Url)
