@@ -1,12 +1,14 @@
 import pytest
+from dotenv import load_dotenv
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 from main import app, Base, get_db
-from dotenv import load_dotenv
-import os
+
 load_dotenv()
 DATABASE_URL_TEST = os.getenv("DATABASE_URL_TEST")
+print("DATABASE_URL_TEST =", DATABASE_URL_TEST)
 engine = create_engine(DATABASE_URL_TEST)
 SessionLocalTest = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
