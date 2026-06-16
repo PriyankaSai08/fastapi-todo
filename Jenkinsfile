@@ -19,10 +19,20 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
-                bat "docker run --rm %IMAGE_NAME% python -m pytest -v"
+        steps {
+            withCredentials([
+                string(credentialsId: 'DATABASE_URL', variable: 'DATABASE_URL'),
+                string(credentialsId: 'DATABASE_URL_TEST', variable: 'DATABASE_URL_TEST')
+            ]) {
+                bat '''
+                docker run --rm ^
+                -e DATABASE_URL=%DATABASE_URL% ^
+                -e DATABASE_URL_TEST=%DATABASE_URL_TEST% ^
+                %IMAGE_NAME% python -m pytest -v
+                '''
             }
         }
+    }
 
         stage('Deploy') {
             steps {
