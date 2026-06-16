@@ -7,7 +7,11 @@ pipeline {
     }
 
     stages {
-       
+       stage('Debug') {
+            steps {
+                bat "docker run --rm todo-app dir"
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 bat "docker build -t %IMAGE_NAME% ."
